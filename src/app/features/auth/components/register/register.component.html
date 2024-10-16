@@ -1,1 +1,40 @@
-<p>register works!</p>
+<!-- app/features/auth/components/register/register.component.html -->
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="username">Username:</label>
+    <input id="username" formControlName="username" />
+    @if (registerForm.get('username')?.invalid && registerForm.get('username')?.touched) {
+      @if (registerForm.get('username')?.errors?.['required']) {
+        <small>Username is required.</small>
+      }
+    }
+  </div>
+
+  <div>
+    <label for="email">Email:</label>
+    <input id="email" formControlName="email" type="email" />
+    @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+      @if (registerForm.get('email')?.errors?.['required']) {
+        <small>Email is required.</small>
+      }
+      @if (registerForm.get('email')?.errors?.['email']) {
+        <small>Invalid email format.</small>
+      }
+    }
+  </div>
+
+  <div>
+    <label for="password">Password:</label>
+    <input id="password" formControlName="password" type="password" />
+    @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+      @if (registerForm.get('password')?.errors?.['required']) {
+        <small>Password is required.</small>
+      }
+      @if (registerForm.get('password')?.errors?.['minlength']) {
+        <small>Password must be at least 6 characters long.</small>
+      }
+    }
+  </div>
+
+  <button type="submit" [disabled]="registerForm.invalid">Register</button>
+</form>
