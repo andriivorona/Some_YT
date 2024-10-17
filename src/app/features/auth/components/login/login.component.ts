@@ -17,14 +17,14 @@ export class LoginComponent implements OnInit{
   private formBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.get('email')?.value,this.loginForm.get('password' )?.value).subscribe({
         next: (response) => {
